@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Character: ALPHA</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/themes/metathesiophobia.css" id="themeStylesheet" />
+</head>
+<body class="page">
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar__left">
+                <h1 class="h1">OPERATOR: ALPHA</h1>
+                <p class="sub">Classified profile (player-local view).</p>
+            </div>
+            <div class="topbar__right">
+                <a class="btn btn--ghost" href="../home/index.html">Home</a>
+            </div>
+        </header>
+
+        <section class="grid">
+            <div class="tile tile--static">
+                <h2 class="h2">Vitals</h2>
+                <ul class="list">
+                    <li>HP: ___ / ___</li>
+                    <li>Flux: ___%</li>
+                    <li>Status: Stable</li>
+                </ul>
+            </div>
+
+            <div class="tile tile--static">
+                <h2 class="h2">Inventory Slots</h2>
+                <div class="slots" aria-label="Inventory slots">
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2 class="h2">Notes</h2>
+            <p class="hint">Put the real sheet content here (or embed a PDF/image).</p>
+            <!-- ARG breadcrumb: Zmx1eD0zMA== -->
+        </section>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/arg.js"></script>
+    <script>
+    window.ConfluxAuth.requireAuthOrRedirect("../index.html");
+    </script>
+</body>
+</html>
