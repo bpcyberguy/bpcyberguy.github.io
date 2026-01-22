@@ -1,0 +1,16 @@
+{
+  "players": {
+    "ALPHA-7D3K": {
+      "name": "Alpha",
+      "characterPath": "/characters/alpha.html"
+    },
+    "BETA-19QX": {
+      "name": "Beta",
+      "characterPath": "/characters/alpha.html"
+    }
+  },
+  "dm": {
+    "passphraseHint": "They are watching you.",
+    "passphraseHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

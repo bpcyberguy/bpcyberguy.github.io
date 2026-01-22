@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DM Console</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/themes/diagnostic.css" id="themeStylesheet" />
+</head>
+<body class="page page--dm">
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar__left">
+                <h1 class="h1">DM CONSOLE</h1>
+                <p class="sub">This is not secure. It is merely not advertised.</p>
+            </div>
+            <div class="topbar__right">
+                <a class="btn btn--ghost" href="../home/index.html">Home</a>
+            </div>
+        </header>
+
+        <section class="card">
+            <h2 class="h2">Elevate Session</h2>
+            <form id="dmForm" class="stack">
+                <label class="field">
+                    <span class="field__label">DM Passphrase</span>
+                    <input class="field__input" id="dmCode" placeholder="GM-only" />
+                </label>
+                <button class="btn" type="submit">Unlock DM Mode</button>
+                <p class="hint" id="dmHint"></p>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2 class="h2">Lore Controls</h2>
+            <div class="stack">
+                <button class="btn btn--ghost" id="unlockAllLore">Unlock all lore (local)</button>
+                <button class="btn btn--ghost" id="lockAllLore">Lock all lore (local)</button>
+            </div>
+            <p class="hint">This only affects the current browser session on this device.</p>
+        </section>
+
+        <footer class="footer">
+            <small>WARNING: VIEW-SOURCE COMPROMISE IS EXPECTED.</small>
+        </footer>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/arg.js"></script>
+    <script>
+    window.ConfluxAuth.requireAuthOrRedirect("../index.html");
+
+    document.getElementById('dmForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const code = document.getElementById('dmCode').value.trim();
+      const hint = document.getElementById('dmHint');
+      hint.textContent = '';
+
+      const ok = await window.ConfluxAuth.elevateToDM(code);
+      hint.textContent = ok ? "DM mode enabled (local)." : "Incorrect.";
+    });
+
+    document.getElementById('unlockAllLore').addEventListener('click', async () => {
+      const res = await fetch("../data/lore.json", { cache: "no-store" });
+      const lore = await res.json();
+      const flags = lore.entries.map(e => e.flag);
+      window.ConfluxAuth.setUnlockFlags(flags);
+      alert("Unlocked all lore (local).");
+    });
+
+    document.getElementById('lockAllLore').addEventListener('click', () => {
+      window.ConfluxAuth.setUnlockFlags([]);
+      alert("Locked all lore (local).");
+    });
+    </script>
+</body>
+</html>

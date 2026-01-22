@@ -1,0 +1,74 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Conflux Security Gateway</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/themes/metathesiophobia.css" id="themeStylesheet" />
+    <meta name="conflux-seed" content="bWV0YXRoZXNp b3Bob2JpYQ==">
+</head>
+<body class="page page--login">
+    <main class="shell">
+        <header class="brand">
+            <div class="brand__sigil" aria-hidden="true"></div>
+            <div>
+                <h1 class="brand__title">CONFLUX // SECURITY</h1>
+                <p class="brand__subtitle">Enter your issued access token.</p>
+            </div>
+        </header>
+
+        <section class="card">
+            <form id="loginForm" class="stack" autocomplete="off">
+                <label class="field">
+                    <span class="field__label">Player ID</span>
+                    <input class="field__input" id="playerId" name="playerId" inputmode="text" placeholder="e.g., ALPHA-7D3K" required />
+                </label>
+
+                <label class="field">
+                    <span class="field__label">Mode</span>
+                    <select class="field__input" id="themeSelect" name="themeSelect">
+                        <option value="metathesiophobia" selected>Metathesiophobia</option>
+                        <option value="diagnostic">Diagnostics</option>
+                    </select>
+                </label>
+
+                <button class="btn" type="submit">Authenticate</button>
+                <p class="hint" id="loginHint"></p>
+
+                <!-- ARG breadcrumb: the “wrong” label is correct. -->
+                <!-- /dm/ is not linked anywhere on purpose. -->
+            </form>
+        </section>
+
+        <footer class="footer">
+            <small>SESSION: LOCAL // NO NETWORK AUTH</small>
+        </footer>
+    </main>
+
+    <script src="js/auth.js"></script>
+    <script src="js/arg.js"></script>
+    <script>
+    const themeSelect = document.getElementById('themeSelect');
+    themeSelect.addEventListener('change', () => window.ConfluxAuth.setTheme(themeSelect.value));
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('playerId').value.trim();
+      const hint = document.getElementById('loginHint');
+      hint.textContent = '';
+
+      try {
+        const result = await window.ConfluxAuth.loginWithId(id);
+        if (result.ok) {
+          location.href = result.redirectTo;
+        } else {
+          hint.textContent = result.message || 'Access denied.';
+        }
+      } catch {
+        hint.textContent = 'Auth subsystem fault.';
+      }
+    });
+    </script>
+</body>
+</html>

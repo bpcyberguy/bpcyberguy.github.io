@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lore Archive</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/themes/metathesiophobia.css" id="themeStylesheet" />
+</head>
+<body class="page page--lore">
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar__left">
+                <h1 class="h1">LORE ARCHIVE</h1>
+                <p class="sub">Entries may be locked until authorization is granted.</p>
+            </div>
+            <div class="topbar__right">
+                <a class="btn btn--ghost" href="../home/index.html">Home</a>
+            </div>
+        </header>
+
+        <section class="card">
+            <h2 class="h2">Unlocked Status</h2>
+            <p class="hint">Lore unlocks are stored locally (your browser). Clearing site data clears access.</p>
+        </section>
+
+        <section class="card">
+            <h2 class="h2">Archive</h2>
+            <div id="loreList" class="stack"></div>
+        </section>
+
+        <section class="card">
+            <h2 class="h2">Authorization Input</h2>
+            <form id="unlockForm" class="stack">
+                <label class="field">
+                    <span class="field__label">Unlock Code</span>
+                    <input class="field__input" id="unlockCode" placeholder="Provided by GM" />
+                </label>
+                <button class="btn" type="submit">Apply</button>
+                <p class="hint" id="unlockHint"></p>
+            </form>
+            <!-- ARG breadcrumb: unlockCode accepts some “wrong” inputs too. -->
+        </section>
+
+        <footer class="footer">
+            <small>ARCHIVE: PARTITIONED // PERMISSIONS: LOCAL</small>
+        </footer>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/lore.js"></script>
+    <script src="../js/arg.js"></script>
+</body>
+</html>

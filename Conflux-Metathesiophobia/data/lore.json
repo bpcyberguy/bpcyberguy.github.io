@@ -1,0 +1,19 @@
+{
+  "entries": [
+    {
+      "id": "lore_intro",
+      "title": "The World Shaper’s Silence",
+      "flag": "lore_intro",
+      "required": [],
+      "content": "Basic public lore. Keep this spoiler-safe."
+    },
+    {
+      "id": "lore_danse",
+      "title": "Danse Macabre: The Queen’s Consort",
+      "flag": "lore_danse",
+      "required": [ "lore_intro" ],
+      "content": "Locked until later. Add the real reveal here.",
+      "unlockCodeHash": "REPLACE_WITH_SHA256_OF_CODE"
+    }
+  ]
+}

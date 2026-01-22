@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Character Sheet</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/themes/metathesiophobia.css" id="themeStylesheet" />
+</head>
+<body class="page page--characters">
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar__left">
+                <h1 class="h1">CHARACTER SHEET</h1>
+                <p class="sub">Routing to your reserved profile…</p>
+            </div>
+            <div class="topbar__right">
+                <a class="btn btn--ghost" href="../home/index.html">Home</a>
+            </div>
+        </header>
+
+        <section class="card">
+            <p class="hint" id="routeHint">If you see this for more than a second, your ID isn’t mapped.</p>
+        </section>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script>
+    (async () => {
+      const sess = window.ConfluxAuth.requireAuthOrRedirect("../index.html");
+      if (!sess) return;
+
+      const res = await fetch("../data/players.json", { cache: "no-store" });
+      const db = await res.json();
+
+      const record = db.players[sess.playerId];
+      if (!record || !record.characterPath) {
+        document.getElementById('routeHint').textContent = "No character mapped to this ID.";
+        return;
+      }
+      location.href = "../" + record.characterPath.replace(/^\//, "");
+    })();
+    </script>
+</body>
+</html>

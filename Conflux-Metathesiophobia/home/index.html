@@ -1,0 +1,58 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Conflux: Metathesiophobia</title>
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/themes/metathesiophobia.css" id="themeStylesheet" />
+</head>
+<body class="page page--home">
+    <main class="shell">
+        <header class="topbar">
+            <div class="topbar__left">
+                <h1 class="h1">CONFLUX: METATHESIOPHOBIA</h1>
+                <p class="sub">Welcome, <span id="playerName">Operator</span>.</p>
+            </div>
+            <div class="topbar__right">
+                <button class="btn btn--ghost" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <section class="grid">
+            <a class="tile" href="../characters/index.html">
+                <h2 class="h2">Character Sheet</h2>
+                <p>Access your reserved profile.</p>
+            </a>
+
+            <a class="tile" href="../lore/index.html">
+                <h2 class="h2">Lore Archive</h2>
+                <p>Restricted entries unlock by authorization.</p>
+            </a>
+
+            <a class="tile" href="#" id="diagnosticsLink">
+                <h2 class="h2">System Diagnostics</h2>
+                <p>Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd>.</p>
+            </a>
+        </section>
+
+        <section class="card">
+            <h2 class="h2">Session Notes</h2>
+            <ul class="list">
+                <li data-fragment="aG9sbG93LWV5ZXM=">Anomaly detected.</li>
+                <li>Analyzing intrusion.</li>
+                <li>They observe with watchful eyes.</li>
+            </ul>
+            <!-- ARG breadcrumb: data-fragment decodes to a phrase -->
+        </section>
+
+        <footer class="footer">
+            <small>BUILD: STATIC // HOST: GITHUB PAGES</small>
+        </footer>
+    </main>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/arg.js"></script>
+</body>
+</html>
