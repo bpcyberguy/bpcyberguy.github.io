@@ -1,15 +1,23 @@
 {
   "players": {
-    "ALPHA-7D3K": {
+    "Maddie24601": {
       "name": "Alpha",
-      "characterPath": "/characters/alpha.html"
+      "characterPath": "/characters/maddie.html"
     },
-    "BETA-19QX": {
+    "Hailey0726": {
       "name": "Beta",
-      "characterPath": "/characters/alpha.html"
+      "characterPath": "/characters/hailey.html"
+  },
+      "Joseph2714": {
+      "name": "Charlie",
+      "characterPath": "/characters/jo.html"
+  },
+    "Mason1528": {
+      "name": "Delta",
+      "characterPath": "/characters/mason.html"
     }
   },
-  "dm": {
+  "Arbitor0122": {
     "passphraseHint": "They are watching you.",
     "passphraseHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
   }
