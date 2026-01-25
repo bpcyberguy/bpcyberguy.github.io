@@ -84,5 +84,18 @@
       }
     });
     </script>
+    <script>
+  function playAccessGranted(targetUrl) {
+    const overlay = document.getElementById("accessOverlay");
+    overlay.classList.add("on");
+
+    const swallowAtMs = 1050;
+    const navigateAtMs = swallowAtMs + 780;
+
+    setTimeout(() => overlay.classList.add("swallow"), swallowAtMs);
+    setTimeout(() => window.location.href = targetUrl, navigateAtMs);
+  }
+</script>
+</body>
 </body>
 </html>
