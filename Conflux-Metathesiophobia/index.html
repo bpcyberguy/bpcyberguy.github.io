@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Conflux Security Gateway</title>
-    <link rel="stylesheet" href="css/base.css" />
-    <link rel="stylesheet" href="css/themes/metathesiophobia.css" id="themeStylesheet" />
-    <meta name="conflux-seed" content="bWV0YXRoZXNp b3Bob2JpYQ==">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Conflux Security Gateway</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/themes/metathesiophobia.css" id="themeStylesheet" />
+  <meta name="conflux-seed" content="bWV0YXRoZXNpb3Bob2JpYQ==">
 </head>
+
 <body class="page page--login">
-      <!-- ACCESS GRANTED animation overlay -->
+
+  <!-- ACCESS GRANTED animation overlay -->
   <div id="accessOverlay" class="access-overlay" aria-hidden="true">
     <div class="access-text">
       <span class="slice" style="--i:0;">ACCESS GRANTED</span>
@@ -23,46 +25,48 @@
       <polygon points="50,2 93,25 93,75 50,98 7,75 7,25"></polygon>
     </svg>
   </div>
-    <main class="shell">
-        <header class="brand">
-            <div class="brand__sigil" aria-hidden="true"></div>
-            <div>
-                <h1 class="brand__title">CONFLUX // SECURITY</h1>
-                <p class="brand__subtitle">Enter your issued access token.</p>
-            </div>
-        </header>
 
-        <section class="card">
-            <form id="loginForm" class="stack" autocomplete="off">
-                <label class="field">
-                    <span class="field__label">Player ID</span>
-                    <input class="field__input" id="playerId" name="playerId" inputmode="text" placeholder="e.g., Name&Number" required />
-                </label>
+  <main class="shell">
+    <header class="brand">
+      <div class="brand__sigil" aria-hidden="true"></div>
+      <div>
+        <h1 class="brand__title">CONFLUX // SECURITY</h1>
+        <p class="brand__subtitle">Enter your issued access token.</p>
+      </div>
+    </header>
 
-                <label class="field">
-                    <span class="field__label">Mode</span>
-                    <select class="field__input" id="themeSelect" name="themeSelect">
-                        <option value="metathesiophobia" selected>Metathesiophobia</option>
-                        <option value="diagnostic">Diagnostics</option>
-                    </select>
-                </label>
+    <section class="card">
+      <form id="loginForm" class="stack" autocomplete="off">
+        <label class="field">
+          <span class="field__label">Player ID</span>
+          <input class="field__input" id="playerId" name="playerId" inputmode="text" placeholder="e.g., Name&Number" required />
+        </label>
 
-                <button class="btn" type="submit">Authenticate</button>
-                <p class="hint" id="loginHint"></p>
+        <label class="field">
+          <span class="field__label">Mode</span>
+          <select class="field__input" id="themeSelect" name="themeSelect">
+            <option value="metathesiophobia" selected>Metathesiophobia</option>
+            <option value="diagnostic">Diagnostics</option>
+          </select>
+        </label>
 
-                <!-- ARG breadcrumb: the “wrong” label is correct. -->
-                <!-- /dm/ is not linked anywhere on purpose. -->
-            </form>
-        </section>
+        <button class="btn" type="submit">Authenticate</button>
+        <p class="hint" id="loginHint"></p>
 
-        <footer class="footer">
-            <small>SESSION: LOCAL // NO NETWORK AUTH</small>
-        </footer>
-    </main>
+        <!-- ARG breadcrumb: the “wrong” label is correct. -->
+        <!-- /dm/ is not linked anywhere on purpose. -->
+      </form>
+    </section>
 
-    <script src="js/auth.js"></script>
-    <script src="js/arg.js"></script>
-    <script>
+    <footer class="footer">
+      <small>SESSION: LOCAL // NO NETWORK AUTH</small>
+    </footer>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script src="js/arg.js"></script>
+
+  <script>
     const themeSelect = document.getElementById('themeSelect');
     themeSelect.addEventListener('change', () => window.ConfluxAuth.setTheme(themeSelect.value));
 
@@ -83,19 +87,17 @@
         hint.textContent = 'Auth subsystem fault.';
       }
     });
-    </script>
-    <script>
-  function playAccessGranted(targetUrl) {
-    const overlay = document.getElementById("accessOverlay");
-    overlay.classList.add("on");
 
-    const swallowAtMs = 1050;
-    const navigateAtMs = swallowAtMs + 780;
+    function playAccessGranted(targetUrl) {
+      const overlay = document.getElementById("accessOverlay");
+      overlay.classList.add("on");
 
-    setTimeout(() => overlay.classList.add("swallow"), swallowAtMs);
-    setTimeout(() => window.location.href = targetUrl, navigateAtMs);
-  }
-</script>
-</body>
+      const swallowAtMs = 1050;
+      const navigateAtMs = swallowAtMs + 780;
+
+      setTimeout(() => overlay.classList.add("swallow"), swallowAtMs);
+      setTimeout(() => window.location.href = targetUrl, navigateAtMs);
+    }
+  </script>
 </body>
 </html>
