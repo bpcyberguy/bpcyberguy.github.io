@@ -316,6 +316,9 @@ kbd {
   user-select: none;
   z-index: 1; /* above hex */
   filter: drop-shadow(0 8px 24px rgba(0,0,0,0.7));
+  position: relative;
+  height: 1em;
+  width: max-content;
 }
 
 /* 5 horizontal “slices” of the same text */
