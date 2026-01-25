@@ -75,7 +75,7 @@
       try {
         const result = await window.ConfluxAuth.loginWithId(id);
         if (result.ok) {
-          location.href = result.redirectTo;
+          playAccessGranted(result.redirectTo);
         } else {
           hint.textContent = result.message || 'Access denied.';
         }
