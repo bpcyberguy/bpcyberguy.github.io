@@ -100,6 +100,38 @@
         localStorage.setItem(UNLOCK_KEY, JSON.stringify([...new Set(flags)]));
     }
 
+    function getCharacterSaves() {
+        try { return JSON.parse(localStorage.getItem("conflux_character_saves_v1") || "{}"); }
+        catch { return {}; }
+    }
+
+    function setCharacterSaves(saves) {
+        localStorage.setItem("conflux_character_saves_v1", JSON.stringify(saves));
+    }
+
+    function loadCharacterProgress(characterId) {
+        const sess = getSession();
+        if (!sess || !sess.playerId) return null;
+        const saves = getCharacterSaves();
+        return (saves[sess.playerId] && saves[sess.playerId][characterId]) || null;
+    }
+
+    function saveCharacterProgress(characterId, data) {
+        const sess = getSession();
+        if (!sess || !sess.playerId) return false;
+        
+        const saves = getCharacterSaves();
+        if (!saves[sess.playerId]) saves[sess.playerId] = {};
+        
+        saves[sess.playerId][characterId] = {
+            ...data,
+            lastUpdated: Date.now()
+        };
+        
+        setCharacterSaves(saves);
+        return true;
+    }
+
     window.ConfluxAuth = {
         getSession,
         loginWithId,
@@ -109,7 +141,9 @@
         sha256Hex,
         getUnlockFlags,
         setUnlockFlags,
-        elevateToDM
+        elevateToDM,
+        loadCharacterProgress,
+        saveCharacterProgress
     };
 
     applySavedTheme();

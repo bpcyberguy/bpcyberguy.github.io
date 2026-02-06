@@ -29,27 +29,88 @@
                 </ul>
             </div>
 
-            <div class="tile tile--static">
+            <div class="tile">
                 <h2 class="h2">Inventory Slots</h2>
-                <div class="slots" aria-label="Inventory slots">
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                    <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
-                </div>
+                <form id="characterForm" class="stack">
+                    <div class="slots" aria-label="Inventory items">
+                        <input type="text" id="slot0" class="slot inventory-input" placeholder="Slot 1" />
+                        <input type="text" id="slot1" class="slot inventory-input" placeholder="Slot 2" />
+                        <input type="text" id="slot2" class="slot inventory-input" placeholder="Slot 3" />
+                        <input type="text" id="slot3" class="slot inventory-input" placeholder="Slot 4" />
+                        <input type="text" id="slot4" class="slot inventory-input" placeholder="Slot 5" />
+                        <input type="text" id="slot5" class="slot inventory-input" placeholder="Slot 6" />
+                        <input type="text" id="slot6" class="slot inventory-input" placeholder="Slot 7" />
+                        <input type="text" id="slot7" class="slot inventory-input" placeholder="Slot 8" />
+                        <input type="text" id="slot8" class="slot inventory-input" placeholder="Slot 9" />
+                        <input type="text" id="slot9" class="slot inventory-input" placeholder="Slot 10" />
+                        <input type="text" id="slot10" class="slot inventory-input" placeholder="Slot 11" />
+                        <input type="text" id="slot11" class="slot inventory-input" placeholder="Slot 12" />
+                    </div>
+                    <div>
+                        <label class="field">
+                            <span class="field__label">Notes</span>
+                            <textarea id="notesInput" class="field__input" rows="6" placeholder="Character notes, journal entries, or observations..."></textarea>
+                        </label>
+                    </div>
+                    <div id="saveStatus" class="hint" style="margin-top: 8px;"></div>
+                    <button type="button" id="savBtn" class="btn">Save Progress</button>
+                </form>
             </div>
-        </section>
-
-        <section class="card">
-            <h2 class="h2">Notes</h2>
-            <p class="hint">Put the real sheet content here (or embed a PDF/image).</p>
-            <!-- ARG breadcrumb: Zmx1eD0zMA== -->
         </section>
     </main>
 
     <script src="../js/auth.js"></script>
     <script src="../js/arg.js"></script>
     <script>
-    window.ConfluxAuth.requireAuthOrRedirect("../index.html");
+    (() => {
+        const CHARACTER_ID = "joe";
+        const sess = window.ConfluxAuth.requireAuthOrRedirect("../index.html");
+        if (!sess) return;
+
+        function loadProgress() {
+            const saved = window.ConfluxAuth.loadCharacterProgress(CHARACTER_ID);
+            if (!saved) return;
+            
+            if (saved.inventory && Array.isArray(saved.inventory)) {
+                saved.inventory.forEach((item, idx) => {
+                    const el = document.getElementById(`slot${idx}`);
+                    if (el) el.value = item || "";
+                });
+            }
+            if (saved.notes) {
+                const notesEl = document.getElementById("notesInput");
+                if (notesEl) notesEl.value = saved.notes;
+            }
+        }
+
+        function saveProgress() {
+            const inventory = Array.from({length: 12}, (_, i) => {
+                const el = document.getElementById(`slot${i}`);
+                return el ? el.value : "";
+            });
+            const notes = document.getElementById("notesInput")?.value || "";
+            
+            const ok = window.ConfluxAuth.saveCharacterProgress(CHARACTER_ID, {
+                inventory,
+                notes
+            });
+            
+            const statusEl = document.getElementById("saveStatus");
+            if (ok && statusEl) {
+                statusEl.textContent = "✓ Progress saved at " + new Date().toLocaleTimeString();
+                setTimeout(() => { statusEl.textContent = ""; }, 3000);
+            }
+        }
+
+        document.getElementById("savBtn")?.addEventListener("click", saveProgress);
+        
+        // Auto-save on field blur
+        document.querySelectorAll(".inventory-input, #notesInput").forEach(el => {
+            el.addEventListener("blur", saveProgress);
+        });
+
+        loadProgress();
+    })();
     </script>
 </body>
 </html>
