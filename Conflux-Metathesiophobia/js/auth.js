@@ -16,24 +16,36 @@
         localStorage.removeItem(STORAGE_KEY);
     }
 
+    function normalizeThemeName(name) {
+        const allowedThemes = ["metathesiophobia", "diagnostic"];
+        const normalized = (name || "").toString().trim();
+        return allowedThemes.includes(normalized) ? normalized : "metathesiophobia";
+    }
+
     function setTheme(name) {
-        localStorage.setItem(THEME_KEY, name);
+        const safeName = normalizeThemeName(name);
+        localStorage.setItem(THEME_KEY, safeName);
         const link = document.getElementById("themeStylesheet");
         if (!link) return;
-        link.href = name === "diagnostic"
+        link.href = safeName === "diagnostic"
             ? (link.href.includes("/css/") ? "../css/themes/diagnostic.css" : "css/themes/diagnostic.css")
             : (link.href.includes("/css/") ? "../css/themes/metathesiophobia.css" : "css/themes/metathesiophobia.css");
     }
 
     function applySavedTheme() {
-        const name = localStorage.getItem(THEME_KEY) || "metathesiophobia";
+        const storedName = localStorage.getItem(THEME_KEY) || "metathesiophobia";
+        const safeName = normalizeThemeName(storedName);
+        // Ensure we don't keep any unsafe value in storage
+        if (safeName !== storedName) {
+            localStorage.setItem(THEME_KEY, safeName);
+        }
         const link = document.getElementById("themeStylesheet");
         if (!link) return;
         // Determine relative path based on current location depth
         const isNested = location.pathname.split("/").filter(Boolean).length > 1;
         link.href = isNested
-            ? `../css/themes/${name}.css`
-            : `css/themes/${name}.css`;
+            ? `../css/themes/${safeName}.css`
+            : `css/themes/${safeName}.css`;
     }
 
     async function sha256Hex(str) {
